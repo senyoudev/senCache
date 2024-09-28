@@ -1,7 +1,7 @@
-# Java Caching System
+# SenCache : Java Caching System
 
 ## Project Overview
-This project implements a caching system as an intermediate layer between an application and a file-based data source. It's designed to optimize read operations while ensuring data consistency for writes, using the Readers-Writers concurrency pattern.
+SenCache implements a caching system as an intermediate layer between an application and a file-based data source. It's designed to optimize read operations while ensuring data consistency for writes, using the Readers-Writers concurrency pattern.
 
 
 ## Architecture Decisions and Trade-offs
