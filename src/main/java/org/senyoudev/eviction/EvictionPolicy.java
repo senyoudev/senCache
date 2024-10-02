@@ -1,4 +1,4 @@
 package org.senyoudev.eviction;
 
-public interface EvictionPolicy {
+public sealed interface EvictionPolicy permits LRUEvictionPolicy {
 }
