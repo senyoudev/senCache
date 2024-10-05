@@ -1,4 +1,4 @@
-package org.senyoudev.util;
+package org.senyoudev.serialization;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

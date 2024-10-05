@@ -1,6 +1,7 @@
-package org.senyoudev.util;
+package org.senyoudev.serialization;
 
 import org.senyoudev.exception.SerializationException;
+import org.senyoudev.serialization.JsonSerializer;
 
 /**
  * Interface for serializing and deserializing objects.

@@ -3,6 +3,7 @@ package org.senyoudev.config;
 
 import org.senyoudev.datasource.DataSource;
 import org.senyoudev.eviction.EvictionPolicy;
+import org.senyoudev.serialization.SerializationType;
 
 /**
  * Cache configuration class
@@ -13,6 +14,7 @@ import org.senyoudev.eviction.EvictionPolicy;
 public record CacheConfig(
         double maxSize,
         EvictionPolicy policyEviction,
-        DataSource dataSource
+        DataSource dataSource,
+        SerializationType serializationtype
 ) {
 }
