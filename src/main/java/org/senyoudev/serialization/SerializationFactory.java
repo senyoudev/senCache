@@ -31,6 +31,10 @@ public class SerializationFactory {
      * @param serializer the serializer class
      */
     public static void registerSerializer(String format, Class<? extends Serializer> serializer) {
+        // Check if the serializer is permitted by the Serializer interface
+        if (!Serializer.class.isAssignableFrom(serializer)) {
+            throw new IllegalArgumentException("Serializer class must implement the Serializer interface.");
+        }
         registeredSerializers.put(format.toLowerCase(), serializer);
     }
 }
