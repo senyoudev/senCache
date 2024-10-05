@@ -6,6 +6,8 @@ SenCache implements a caching system as an intermediate layer between an applica
 
 ## Architecture Decisions and Trade-offs
 
+![High Level Architecture](architecture.png)
+
 ### 1. Data Format: JSON
 - **Decision**: Use JSON for data storage
 - **Pros**: Human-readable, flexible, widely supported
