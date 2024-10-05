@@ -31,6 +31,9 @@ public final class JsonSerializer<T> implements Serializer<T> {
      */
     @Override
     public byte[] serialize(T object) throws SerializationException {
+        if(object == null) {
+            throw new SerializationException("Cannot serialize a null object.");
+        }
         try {
             return objectMapper.writeValueAsBytes(object);
         } catch (JsonProcessingException e) {
