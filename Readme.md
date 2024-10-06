@@ -52,3 +52,4 @@ SenCache implements a caching system as an intermediate layer between an applica
 - Distributed caching capabilities
 - Additional eviction policies (e.g., LFU, FIFO)
 - Enhanced monitoring and statistics
+- Different concurrency models
