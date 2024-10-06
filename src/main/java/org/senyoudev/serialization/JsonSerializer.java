@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.senyoudev.exception.SerializationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -14,6 +16,7 @@ import org.senyoudev.exception.SerializationException;
 public final class JsonSerializer<T> implements Serializer<T> {
     private final ObjectMapper objectMapper;
     private final Class<T> type;
+    private final static Logger LOGGER = LoggerFactory.getLogger(JsonSerializer.class);
 
     public JsonSerializer(Class<T> type) {
         this.type = type;
@@ -35,7 +38,9 @@ public final class JsonSerializer<T> implements Serializer<T> {
             throw new SerializationException("Cannot serialize a null object.");
         }
         try {
-            return objectMapper.writeValueAsBytes(object);
+            byte[] data = objectMapper.writeValueAsBytes(object);
+            LOGGER.info("Serialized object of type {} to JSON: {}", object.getClass().getName(), new String(data));
+            return data;
         } catch (JsonProcessingException e) {
         throw new SerializationException("Error serializing object of type: " + object.getClass().getName(), e);
         } catch (Exception e) {
@@ -52,7 +57,9 @@ public final class JsonSerializer<T> implements Serializer<T> {
     @Override
     public T deserialize(byte[] data) throws SerializationException {
         try {
-            return objectMapper.readValue(data, type);
+            T object = objectMapper.readValue(data, type);
+            LOGGER.info("Deserialized JSON to object of type {}: {}", type.getName(), object);
+            return object;
         } catch (JsonProcessingException e) {
             throw new SerializationException("Error deserializing object of type: " + type.getName(), e);
         } catch (Exception e) {
