@@ -79,11 +79,17 @@ public final class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
      * This class represents a node in the linked list.
      * @param <T> the type of the key
      */
-    private static class Node<T> {
-        T key;
+    public static class Node<T> {
+        private T key;
 
         Node(T key) {
             this.key = key;
         }
+
+        public T getKey() {
+            return key;
+        }
+
+
     }
 }
