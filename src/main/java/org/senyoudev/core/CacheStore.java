@@ -34,7 +34,7 @@ public class CacheStore<K, V> {
     Objects.requireNonNull(key, "Key cannot be null");
     Objects.requireNonNull(value, "Value cannot be null");
     if (store.size() >= maxSize && !store.containsKey(key)) {
-      evictionPolicy.evict();
+      evict();
     }
     store.put(key, value);
     evictionPolicy.onPut(key);

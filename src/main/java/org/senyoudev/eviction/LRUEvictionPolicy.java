@@ -1,5 +1,6 @@
 package org.senyoudev.eviction;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import java.util.Map;
  * @param <K> the type of the key
  */
 public final class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
+
   private final int maxSize;
   private final Map<K, Node<K>> cache;
   private final LinkedList<Node<K>> list;
@@ -18,6 +20,10 @@ public final class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
     this.maxSize = maxSize;
     this.cache = cache;
     this.list = list;
+  }
+
+  public LRUEvictionPolicy(int maxSize) {
+    this(maxSize, new HashMap<>(), new LinkedList<>());
   }
 
   /**
@@ -92,6 +98,7 @@ public final class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
    * @param <T> the type of the key
    */
   public static class Node<T> {
+
     private T key;
 
     Node(T key) {
