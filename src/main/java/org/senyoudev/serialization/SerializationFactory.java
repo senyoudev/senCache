@@ -3,38 +3,38 @@ package org.senyoudev.serialization;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Factory class to create serialization objects.
- */
+/** Factory class to create serialization objects. */
 public class SerializationFactory {
-    // Map of serializers keyed by format name (case-insensitive)
-    private static final Map<String, Class<? extends Serializer>> registeredSerializers = new HashMap<>();
+  // Map of serializers keyed by format name (case-insensitive)
+  private static final Map<String, Class<? extends Serializer>> registeredSerializers =
+      new HashMap<>();
 
-    static {
-        registeredSerializers.put("json",JsonSerializer.class);
-    }
+  static {
+    registeredSerializers.put("json", JsonSerializer.class);
+  }
 
-    /**
-     * Get the serializer for the given format.
-     *
-     * @param format the format of the serializer (e.g, "json", "csv")
-     * @return the serializer class or null if not found
-     */
-    public static Class<? extends Serializer> getSerializer(String format) {
-        return registeredSerializers.get(format.toLowerCase());
-    }
+  /**
+   * Get the serializer for the given format.
+   *
+   * @param format the format of the serializer (e.g, "json", "csv")
+   * @return the serializer class or null if not found
+   */
+  public static Class<? extends Serializer> getSerializer(String format) {
+    return registeredSerializers.get(format.toLowerCase());
+  }
 
-    /**
-     * Register a new serializer.
-     *
-     * @param format the format of the serializer (e.g, "json", "csv")
-     * @param serializer the serializer class
-     */
-    public static void registerSerializer(String format, Class<? extends Serializer> serializer) {
-        // Check if the serializer is permitted by the Serializer interface
-        if (!Serializer.class.isAssignableFrom(serializer)) {
-            throw new IllegalArgumentException("Serializer class must implement the Serializer interface.");
-        }
-        registeredSerializers.put(format.toLowerCase(), serializer);
+  /**
+   * Register a new serializer.
+   *
+   * @param format the format of the serializer (e.g, "json", "csv")
+   * @param serializer the serializer class
+   */
+  public static void registerSerializer(String format, Class<? extends Serializer> serializer) {
+    // Check if the serializer is permitted by the Serializer interface
+    if (!Serializer.class.isAssignableFrom(serializer)) {
+      throw new IllegalArgumentException(
+          "Serializer class must implement the Serializer interface.");
     }
+    registeredSerializers.put(format.toLowerCase(), serializer);
+  }
 }
