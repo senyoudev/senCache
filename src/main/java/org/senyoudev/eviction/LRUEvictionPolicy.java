@@ -76,6 +76,15 @@ public final class LRUEvictionPolicy<K> implements EvictionPolicy<K> {
     }
 
     /**
+     * This method is for clearing the cache.
+     */
+    @Override
+    public void clear() {
+        cache.clear();
+        list.clear();
+    }
+
+    /**
      * This class represents a node in the linked list.
      * @param <T> the type of the key
      */

@@ -5,4 +5,5 @@ public sealed interface EvictionPolicy<K> permits LRUEvictionPolicy {
     void onPut(K key);
     K evict();
     void onRemove(K key);
+    void clear();
 }

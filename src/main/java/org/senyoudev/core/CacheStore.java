@@ -43,7 +43,32 @@ public class CacheStore<K,V> {
         evictionPolicy.onPut(key);
     }
 
+    public void remove(K key) {
+        Objects.requireNonNull(key, "Key cannot be null");
+        store.remove(key);
+        evictionPolicy.onRemove(key);
+    }
 
+    public void clear() {
+        store.clear();
+        evictionPolicy.clear();
+    }
+
+    public int size() {
+        return store.size();
+    }
+
+    public boolean containsKey(K key) {
+        Objects.requireNonNull(key, "Key cannot be null");
+        return store.containsKey(key);
+    }
+
+    public void evict() {
+        K keyToEvict = evictionPolicy.evict();
+        if(keyToEvict != null) {
+            store.remove(keyToEvict);
+        }
+    }
 
 
 
