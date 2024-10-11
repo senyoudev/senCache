@@ -7,6 +7,7 @@ import org.senyoudev.eviction.EvictionPolicy;
 
 /** This class is our in-memory cache store. */
 public class CacheStore<K, V> {
+
   private final Map<K, V> store;
   private final EvictionPolicy<K> evictionPolicy;
   private final int maxSize;
