@@ -33,7 +33,7 @@ class CacheManagerTest {
     when(cacheConfig.policyEviction()).thenReturn(evictionPolicy);
     when(cacheConfig.maxSize()).thenReturn(Double.valueOf(3));
     when(cacheConfig.dataSource()).thenReturn(dataSource);
-    when(cacheConfig.serializationtype()).thenReturn(SerializationType.JSON);
+    when(cacheConfig.serializationType()).thenReturn(SerializationType.JSON);
 
     cacheManager = new CacheManager<>(cacheConfig);
   }

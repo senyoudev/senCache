@@ -23,7 +23,7 @@ public class CacheManager<K, V> {
     this.cacheConfig = Objects.requireNonNull(cacheConfig, "CacheConfig cannot be null");
     this.cacheStore = new CacheStore<>(cacheConfig.policyEviction(), (int) cacheConfig.maxSize());
     this.dataSource = cacheConfig.dataSource();
-    this.serializer = instantiateSerializer(cacheConfig.serializationtype());
+    this.serializer = instantiateSerializer(cacheConfig.serializationType());
     this.concurrencyController = new ConcurrencyController();
   }
 
