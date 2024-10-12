@@ -24,6 +24,7 @@ public class CacheManager<K, V> {
     this.concurrencyController = new ConcurrencyController();
   }
 
+  /** This method is used to instantiate the serializer based on the serialization type. */
   private Serializer instantiateSerializer(SerializationType serializationType) {
     try {
       Class<? extends Serializer> serializerClass =
@@ -34,6 +35,34 @@ public class CacheManager<K, V> {
       return serializerClass.getDeclaredConstructor().newInstance();
     } catch (Exception e) {
       throw new RuntimeException("Error instantiating serializer", e);
+    }
+  }
+
+  public CacheConfig getCacheConfig() {
+    return cacheConfig;
+  }
+
+  public int size() {
+    return concurrencyController.read(cacheStore::size);
+  }
+
+  public boolean containsKey(K key) {
+    return concurrencyController.read(() -> cacheStore.containsKey(key));
+  }
+
+  public void clear() {
+    concurrencyController.write(
+        () -> {
+          cacheStore.clear();
+          clearDataSource();
+        });
+  }
+
+  public void clearDataSource() {
+    try {
+      dataSource.clear();
+    } catch (Exception e) {
+      throw new RuntimeException("Error clearing data source", e);
     }
   }
 }
