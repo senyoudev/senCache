@@ -1,4 +1,4 @@
-package org.senyoudev.datasource;
+package org.senyoudev.exception;
 
 public class DataSourceException extends Exception {
 

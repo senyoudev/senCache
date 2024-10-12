@@ -1,5 +1,7 @@
 package org.senyoudev.datasource;
 
+import org.senyoudev.exception.DataSourceException;
+
 public sealed interface DataSource<K, V> permits FileDataSource {
 
   String getType();
