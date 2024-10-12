@@ -64,4 +64,10 @@ class CacheStoreTest {
     cacheStore.evict();
     assertFalse(cacheStore.containsKey("key1"));
   }
+
+  @Test
+  void shouldContainKey() {
+    cacheStore.put("key1", "value1");
+    assertTrue(cacheStore.containsKey("key1"));
+  }
 }
