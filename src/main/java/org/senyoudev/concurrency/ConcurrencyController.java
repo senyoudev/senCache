@@ -13,6 +13,7 @@ import java.util.function.Supplier;
  * means that a thread can acquire the same lock multiple times.
  */
 public class ConcurrencyController {
+
   private final ReadWriteLock rwLock =
       new ReentrantReadWriteLock(
           true); // Fairness policy which means that the longest waiting thread gets the lock
@@ -46,23 +47,6 @@ public class ConcurrencyController {
     rwLock.writeLock().lock();
     try {
       writeOperation.run();
-    } finally {
-      rwLock.writeLock().unlock();
-    }
-  }
-
-  /**
-   * This method is used to write to the cache and return a result. It acquires the write lock
-   * before writing to the cache and releases the write lock after writing to the cache.
-   *
-   * @param writeOperation It's a supplier which is a functional interface that takes no arguments
-   *     and returns a result. which means we pass to it a function that will get executed and
-   *     return a result.
-   */
-  public <T> T writeWithResult(Supplier<T> writeOperation) {
-    rwLock.writeLock().lock();
-    try {
-      return writeOperation.get();
     } finally {
       rwLock.writeLock().unlock();
     }

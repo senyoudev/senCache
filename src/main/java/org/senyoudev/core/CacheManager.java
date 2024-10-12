@@ -79,18 +79,17 @@ public class CacheManager<K, V> {
           V value = cacheStore.get(key);
           if (value == null) {
             value =
-                concurrencyController.writeWithResult(
+                concurrencyController.read(
                     () -> {
-                      V fetchedData = null;
                       try {
-                        fetchedData = fetchFromDataSource(key);
+                        V fetchedData = fetchFromDataSource(key);
+                        if (fetchedData != null) {
+                          cacheStore.put(key, fetchedData);
+                        }
+                        return fetchedData;
                       } catch (CacheException e) {
                         throw new RuntimeException(e);
                       }
-                      if (fetchedData != null) {
-                        cacheStore.put(key, fetchedData);
-                      }
-                      return fetchedData;
                     });
           }
           return value;

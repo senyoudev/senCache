@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ConcurrencyControllerTest {
+
   private ConcurrencyController concurrencyController;
   private AtomicInteger sharedResource;
 
@@ -92,16 +93,5 @@ class ConcurrencyControllerTest {
     executorService.shutdown();
     assertTrue(executorService.awaitTermination(1, TimeUnit.SECONDS));
     assertEquals(30, sharedResource.get());
-  }
-
-  @Test
-  void shouldAllowWriteWithResult() {
-    Integer result =
-        concurrencyController.writeWithResult(
-            () -> {
-              sharedResource.set(10);
-              return sharedResource.get();
-            });
-    assertEquals(10, result);
   }
 }

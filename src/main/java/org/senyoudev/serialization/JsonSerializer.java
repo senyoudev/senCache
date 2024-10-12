@@ -15,12 +15,18 @@ import org.slf4j.LoggerFactory;
  * @param <T>
  */
 public final class JsonSerializer<T> implements Serializer<T> {
+
   private final ObjectMapper objectMapper;
   private final Class<T> type;
   private static final Logger LOGGER = LoggerFactory.getLogger(JsonSerializer.class);
 
   public JsonSerializer(Class<T> type) {
     this.type = type;
+    this.objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+  }
+
+  public JsonSerializer() {
+    this.type = (Class<T>) String.class;
     this.objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
   }
 
