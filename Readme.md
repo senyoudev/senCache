@@ -39,10 +39,7 @@ SenCache implements a caching system as an intermediate layer between an applica
 - **Cons**: May slow down write operations
 - **Rationale**: Prioritized simplicity over write performance
 
-### 6. Error Handling and Resilience
-- [To be decided]
-
-### 7. Scalability Considerations
+### 6. Scalability Considerations
 - Use of interfaces for key components to allow future extensibility
 - Modular design separating caching logic, data access, and concurrency control
 
