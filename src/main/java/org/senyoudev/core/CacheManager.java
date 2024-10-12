@@ -97,6 +97,20 @@ public class CacheManager<K, V> {
         });
   }
 
+  public void put(K key, V value) {
+    concurrencyController.write(
+        () -> {
+          if (value != cacheStore.get(key)) {
+            cacheStore.put(key, value);
+            try {
+              writeToDataSource(key, value);
+            } catch (CacheException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        });
+  }
+
   private void clearDataSource() {
     try {
       dataSource.clear();
