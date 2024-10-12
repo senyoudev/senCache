@@ -80,19 +80,67 @@ public class CacheServer {
   private class PutHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {}
+    public void handle(HttpExchange exchange) throws IOException {
+      LOGGER.info("Received PUT request");
+      if (!exchange.getRequestMethod().equals("POST")) {
+        LOGGER.error("Invalid request method");
+        exchange.sendResponseHeaders(405, -1);
+        return;
+      }
+
+      Map<String, String> params = queryToMap(exchange.getRequestURI().getQuery());
+      String key = params.get("key");
+      String value = params.get("value");
+      if (key == null || value == null) {
+        LOGGER.error("Key or value not found in request");
+        exchange.sendResponseHeaders(400, -1);
+        return;
+      }
+
+      cacheManager.put(key, value);
+      LOGGER.info("new Value is {} and key is {}: ", cacheManager.get(key), key);
+      sendResponse(exchange, "Added key-value pair to cache");
+    }
   }
 
   private class RemoveHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {}
+    public void handle(HttpExchange exchange) throws IOException {
+      LOGGER.info("Received REMOVE request");
+      if (!exchange.getRequestMethod().equals("DELETE")) {
+        LOGGER.error("Invalid request method");
+        exchange.sendResponseHeaders(405, -1);
+        return;
+      }
+
+      Map<String, String> params = queryToMap(exchange.getRequestURI().getQuery());
+      String key = params.get("key");
+      if (key == null) {
+        LOGGER.error("Key not found in request");
+        exchange.sendResponseHeaders(400, -1);
+        return;
+      }
+
+      cacheManager.remove(key);
+      sendResponse(exchange, "Removed key-value pair from cache");
+    }
   }
 
   private class ClearHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {}
+    public void handle(HttpExchange exchange) throws IOException {
+      LOGGER.info("Received CLEAR request");
+      if (!exchange.getRequestMethod().equals("DELETE")) {
+        LOGGER.error("Invalid request method");
+        exchange.sendResponseHeaders(405, -1);
+        return;
+      }
+
+      cacheManager.clear();
+      sendResponse(exchange, "Cleared cache");
+    }
   }
 
   /**
