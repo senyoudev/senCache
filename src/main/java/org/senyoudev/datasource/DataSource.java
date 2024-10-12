@@ -6,9 +6,9 @@ public sealed interface DataSource<K, V> permits FileDataSource {
 
   byte[] read(K key) throws DataSourceException;
 
-  void clear();
+  void clear() throws DataSourceException;
 
-  void remove();
+  void remove(K key) throws DataSourceException;
 
-  void write(K key, V value);
+  void write(K key, byte[] value) throws DataSourceException;
 }
